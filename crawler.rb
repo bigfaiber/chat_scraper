@@ -1,6 +1,7 @@
 require 'httparty'
 require 'nokogiri'
 require 'pry'
+require 'csv'
 
 CHATURBATE_URL = "https://chaturbate.com/tags/"
  class ChaturbateScraper
@@ -20,4 +21,12 @@ CHATURBATE_URL = "https://chaturbate.com/tags/"
   end
   
  end
- ChaturbateScraper.new.tags_with_factor.each{|t| p t}
+ ChaturbateScraper.new.tags_with_factor.each do |t|
+   a = []
+   t.each_value do |v|
+     a << v
+   end
+   CSV.open("file.csv", "a+") do |csv|
+     csv << a
+   end
+ end
